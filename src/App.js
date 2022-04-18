@@ -11,13 +11,35 @@ import {useState, useEffect} from 'react';
 
 
 function App() {
+  const [posts, setPosts] = useState([
+    {
+      id: 1,
+      title: 'First Post',
+      datetime: 'July 1, 2021 11:17:36 AM',
+      body: 'Lorem ipsum dolor it amet consectetur adipisicing elit.'
+    },
+    {
+      id: 2,
+      title: 'Second Post',
+      datetime: 'July 2, 2021 11:17:36 AM',
+      body: 'Lorem ipsum dolor it amet consectetur adipisicing elit.'
+    },
+    {
+      id: 3,
+      title: 'Third Post',
+      datetime: 'July 3, 2021 11:17:36 AM',
+      body: 'Lorem ipsum dolor it amet consectetur adipisicing elit.'
+    },
+  ])
+  const [search, setSearch] = useState('');
+
   return (
     <div className='App'>
-      <Header/>
+      <Header title='My Blog'/>
       <Nav/>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/post" element={<NewPost />} />
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/post" element={<NewPost />} />
         <Route path="/post/:id" element={<PostPage />} />
         <Route path="/about" element={<About />} />
         <Route path="*" element={<Missing />} />
