@@ -33,8 +33,20 @@ function App() {
   ])
   const [search, setSearch] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const handleDelete = (id) => {
+  const [postTitle, setPostTitle] = useState('');
+  const [postBody, setPostBody] = useState('');
+  let navigate = useNavigate();
+
+  const handleSubmit = () => {
     
+  }
+
+
+
+  const handleDelete = (id) => {
+    const postsList = posts.filter(post => post.id !== id);
+    setPosts(postsList)
+    navigate('/');
   }
 
   return (
@@ -43,7 +55,13 @@ function App() {
       <Nav search={search} setSearch={setSearch}/>
       <Routes>
         <Route exact path="/" element={<Home posts={posts} />} />
-        <Route exact path="/post" element={<NewPost />} />
+        <Route exact path="/post" element={<NewPost 
+        handleSubmit={handleSubmit} 
+        postTitle={postTitle} 
+        setPostTitle={setPostTitle}
+        postBody={postBody}
+        setPostBody={setPostBody}
+        />} />
         <Route path="/post/:id" element={<PostPage posts={posts} handleDelete={handleDelete} />} />
         <Route path="/about" element={<About />} />
         <Route path="*" element={<Missing />} />
