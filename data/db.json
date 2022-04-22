@@ -1,5 +1,5 @@
 {
-    "posts": [
+  "posts": [
     {
       "id": 1,
       "title": "First Post",
@@ -9,14 +9,8 @@
     {
       "id": 2,
       "title": "Second Post",
-      "datetime": "July 2, 2021 11:17:36 AM",
-      "body": "Lorem ipsum dolor it amet consectetur adipisicing elit."
-    },
-    {
-      "id": 3,
-      "title": "Third Post",
-      "datetime": "July 3, 2021 11:17:36 AM",
-      "body": "Lorem ipsum dolor it amet consectetur adipisicing elit."
+      "datetime": "Apr 22, 2022 3:01:19 PM",
+      "body": "Here is a new post"
     }
   ]
 }

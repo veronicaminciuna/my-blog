@@ -21,7 +21,7 @@ function App() {
   const [postBody, setPostBody] = useState('');
   const [editTitle, setEditTitle] = useState('');
   const [editBody, setEditBody] = useState('');
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
 
   useEffect(()=> {
@@ -48,7 +48,7 @@ function App() {
     const filteredResults = posts.filter(post => 
       ((post.body).toLowerCase()).includes(search.toLowerCase())
       || ((post.title).toLowerCase()).includes(search.toLowerCase()));
-      setSearchResults(filteredResults.reverse());
+    setSearchResults(filteredResults.reverse());
   }, [posts,search])
 
 
@@ -70,17 +70,17 @@ function App() {
 
   }
 
-  const handleEdit = async(id) => {
-    const datetime = format(new Date(), 'MMM dd yyyy pp');
-    const updatedPost = { id, title: editTitle, datetime, body: editBody}
+  const handleEdit = async (id) => {
+    const datetime = format(new Date(), 'MMMM dd, yyyy pp');
+    const updatedPost = { id, title: editTitle, datetime, body: editBody };
     try {
-      const response = await api.put(`/posts/${id}`, updatedPost)
-      setPosts(posts.map(post => post.id === id ? {...response.data} : post))
+      const response = await api.put(`/posts/${id}`, updatedPost);
+      setPosts(posts.map(post => post.id === id ? { ...response.data } : post));
       setEditTitle('');
       setEditBody('');
-      navigate('/')
-    } catch (error) {
-      console.log(`Error: ${error.message}`);
+      navigate('/');
+    } catch (err) {
+      console.log(`Error: ${err.message}`);
     }
   }
 
@@ -88,7 +88,7 @@ function App() {
 
   const handleDelete = async (id) => {
     try {
-      await api.delete(`posts/${id}`)
+      await api.delete(`/posts/${id}`)
       const postsList = posts.filter(post => post.id !== id);
       setPosts(postsList)
       navigate('/');
@@ -104,21 +104,23 @@ function App() {
       <Nav search={search} setSearch={setSearch}/>
       <Routes>
         <Route exact path="/" element={<Home posts={searchResults} />} />
-        <Route exact path="/post" element={<NewPost 
-        handleSubmit={handleSubmit} 
-        postTitle={postTitle} 
-        setPostTitle={setPostTitle}
-        postBody={postBody}
-        setPostBody={setPostBody}
-        />} />
-        <Route path="/edit/:id" element={<EditPost
-        posts={posts} 
-        handleEdit={handleEdit} 
-        editTitle={editTitle} 
-        setEditTitle={setEditTitle}
-        editBody={editBody}
-        setEditBody={setEditBody}
-        />} />
+        <Route exact path="/post" element={
+        <NewPost 
+          handleSubmit={handleSubmit} 
+          postTitle={postTitle} 
+          setPostTitle={setPostTitle}
+          postBody={postBody}
+          setPostBody={setPostBody}
+          />} />
+        <Route path="/edit/:id" element={
+        <EditPost
+          posts={posts} 
+          handleEdit={handleEdit} 
+          editTitle={editTitle} 
+          setEditTitle={setEditTitle}
+          editBody={editBody}
+          setEditBody={setEditBody}
+          />} />
         <Route path="/post/:id" element={<PostPage posts={posts} handleDelete={handleDelete} />} />
         <Route path="/about" element={<About />} />
         <Route path="*" element={<Missing />} />
